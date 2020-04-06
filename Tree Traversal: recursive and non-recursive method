@@ -1,0 +1,104 @@
+# Tree Traversal (pre-order, in-order, post-order): recursive and non-recursive method
+    
+class TreeNode:
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
+
+
+# pre-order: recursive
+def preOrder(root):
+    if not root:
+        return
+    print(root.val, end = ' ')
+    preOrder(root.left)
+    preOrder(root.right)
+
+
+# pre-order: non-recursive
+def preOrder2(root):
+    stack = []
+    cur = root
+    while cur or stack:
+        if cur:
+            print(cur.val, end = ' ')
+            stack.append(cur)
+            cur = cur.left
+        else:
+            node = stack.pop()
+            cur = node.right
+        
+            
+# in-order: recursive
+def inOrder(root):
+    if not root:
+        return
+    inOrder(root.left)
+    print(root.val, end = ' ')
+    inOrder(root.right)
+
+
+# in-order: non-recursive
+def inOrder2(root):
+    stack = []
+    cur = root
+    while cur or stack:
+        if cur:
+            stack.append(cur)
+            cur = cur.left
+        else:
+            node = stack.pop()
+            print(node.val, end = ' ')
+            cur = node.right
+
+
+# post-order: recursive
+def postOrder(root):
+    if not root:
+        return
+    postOrder(root.left)
+    postOrder(root.right)
+    print(root.val, end = ' ')
+
+
+# post-order: non-recursive
+def postOrder2(root):
+    stack = []
+    cur = root
+    visited = set()
+    while cur or stack:
+        if cur:
+            stack.append(cur)
+            cur = cur.left
+        else:
+            node = stack[-1]
+            if node not in visited:
+                visited.add(node)
+                cur = node.right
+            else:
+                print(node.val, end = ' ')
+                stack.pop()
+                cur = None
+
+
+# test
+root = TreeNode(4)
+root.left = TreeNode(2)
+root.right = TreeNode(6)
+root.left.left = TreeNode(0)
+root.left.left.right = TreeNode(1)
+root.left.right = TreeNode(3)
+root.right.left = TreeNode(5)
+root.right.right = TreeNode(7)
+preOrder(root)
+print()
+preOrder2(root)
+print()
+inOrder(root)
+print()
+inOrder2(root)
+print()
+postOrder(root)
+print()
+postOrder2(root)
