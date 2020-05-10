@@ -21,14 +21,13 @@ def preOrder2(root):
     stack = []
     cur = root
     while cur or stack:
-        if cur:
+        while cur:
             print(cur.val, end = ' ')
             stack.append(cur)
             cur = cur.left
-        else:
-            node = stack.pop()
-            cur = node.right
-        
+        node = stack.pop()
+        cur = node.right
+
             
 # in-order: recursive
 def inOrder(root):
@@ -44,13 +43,12 @@ def inOrder2(root):
     stack = []
     cur = root
     while cur or stack:
-        if cur:
+        while cur:
             stack.append(cur)
             cur = cur.left
-        else:
-            node = stack.pop()
-            print(node.val, end = ' ')
-            cur = node.right
+        node = stack.pop()
+        print(node.val, end = ' ')
+        cur = node.right
 
 
 # post-order: recursive
@@ -68,18 +66,16 @@ def postOrder2(root):
     cur = root
     visited = set()
     while cur or stack:
-        if cur:
+        while cur:
             stack.append(cur)
             cur = cur.left
+        node = stack[-1]
+        if node not in visited:
+            visited.add(node)
+            cur = node.right
         else:
-            node = stack[-1]
-            if node not in visited:
-                visited.add(node)
-                cur = node.right
-            else:
-                print(node.val, end = ' ')
-                stack.pop()
-                cur = None
+            print(node.val, end = ' ')
+            stack.pop()
 
 
 # test
